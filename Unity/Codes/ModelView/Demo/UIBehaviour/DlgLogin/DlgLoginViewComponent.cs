@@ -7,6 +7,24 @@ namespace ET
 	[EnableMethod]
 	public  class DlgLoginViewComponent : Entity,IAwake,IDestroy 
 	{
+		public ESCommonUITest ESCommonUITest
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_escommonuitest == null )
+     			{
+		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"Sprite_BackGround/ESCommonUITest");
+		    	   this.m_escommonuitest = this.AddChild<ESCommonUITest,Transform>(subTrans);
+     			}
+     			return this.m_escommonuitest;
+     		}
+     	}
+
 		public UnityEngine.UI.Button E_LoginButton
      	{
      		get
@@ -111,6 +129,8 @@ namespace ET
 
 		public void DestroyWidget()
 		{
+			this.m_escommonuitest?.Dispose();
+			this.m_escommonuitest = null;
 			this.m_E_LoginButton = null;
 			this.m_E_LoginImage = null;
 			this.m_E_AccountInputField = null;
@@ -120,6 +140,7 @@ namespace ET
 			this.uiTransform = null;
 		}
 
+		private ESCommonUITest m_escommonuitest = null;
 		private UnityEngine.UI.Button m_E_LoginButton = null;
 		private UnityEngine.UI.Image m_E_LoginImage = null;
 		private UnityEngine.UI.InputField m_E_AccountInputField = null;

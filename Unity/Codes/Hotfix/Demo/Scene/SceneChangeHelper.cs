@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using System;
+
+namespace ET
 {
     public static class SceneChangeHelper
     {
@@ -25,6 +27,23 @@
             
             Game.EventSystem.PublishAsync(new EventType.SceneChangeFinish() {ZoneScene = zoneScene, CurrentScene = currentScene}).Coroutine();
 
+            //以下为示例代码
+            try
+            {
+                Session session = zoneScene.GetComponent<SessionComponent>().Session;
+                   var  m2CTestActorLocationResponse =(M2C_TestActorLocationResponse)await session.Call(new C2M_TestActorLocationRequest() { Content = "11111111" });
+                   Log.Warning(m2CTestActorLocationResponse.Content);
+                   
+                   session.Send(new C2M_TestActorLocationMessage(){Content = "222222222"});
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+            }
+            
+            
+            //end
+            
             // 通知等待场景切换的协程
             zoneScene.GetComponent<ObjectWait>().Notify(new WaitType.Wait_SceneChangeFinish());
         }

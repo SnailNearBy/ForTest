@@ -493,4 +493,93 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(M2C_TestActorLocationResponse))]
+	[Message(OuterOpcode.C2M_TestActorLocationRequest)]
+	[ProtoContract]
+	public partial class C2M_TestActorLocationRequest: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Content { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_TestActorLocationResponse)]
+	[ProtoContract]
+	public partial class M2C_TestActorLocationResponse: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string Content { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_TestActorLocationMessage)]
+	[ProtoContract]
+	public partial class C2M_TestActorLocationMessage: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string Content { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_TestActorMessage)]
+	[ProtoContract]
+	public partial class M2C_TestActorMessage: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public string Content { get; set; }
+
+	}
+
+	[ResponseType(nameof(A2C_LoginAccount))]
+	[Message(OuterOpcode.C2A_LoginAccount)]
+	[ProtoContract]
+	public partial class C2A_LoginAccount: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string AccountName { get; set; }
+
+		[ProtoMember(2)]
+		public string Password { get; set; }
+
+	}
+
+	[Message(OuterOpcode.A2C_LoginAccount)]
+	[ProtoContract]
+	public partial class A2C_LoginAccount: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string Token { get; set; }
+
+		[ProtoMember(2)]
+		public long AccountId { get; set; }
+
+	}
+
 }

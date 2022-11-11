@@ -36,6 +36,12 @@ namespace ET
                 case SceneType.Location:
                     scene.AddComponent<LocationComponent>();
                     break;
+                case SceneType.Account:
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort,
+                        SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
+                  //  scene.AddComponent<DBManagerComponent>();  在这里加就只有账号服务器写入读取数据库
+                    scene.AddComponent<TokenComponent>();
+                    break;
             }
 
             return scene;

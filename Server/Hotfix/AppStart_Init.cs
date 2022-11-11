@@ -35,7 +35,7 @@ namespace ET
             Game.Scene.AddComponent<NetThreadComponent>();
             
             Game.Scene.AddComponent<NavmeshComponent, Func<string, byte[]>>(RecastFileReader.Read);
-
+            Game.Scene.AddComponent<DBManagerComponent>();  // 放在Game.Scene 下无论是 本地单线程 还是分布式 多线程 都可以拥有修改数据库的能力
             switch (Game.Options.AppType)
             {
                 case AppType.Server:
