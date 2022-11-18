@@ -38,5 +38,28 @@ namespace ET
 		 public const ushort M2C_TestActorMessage = 10035;
 		 public const ushort C2A_LoginAccount = 10036;
 		 public const ushort A2C_LoginAccount = 10037;
+		 public const ushort A2C_Disconnect = 10038;
+		 public const ushort C2R_LoginTest = 10039;
+		 public const ushort R2C_LoginTest = 10040;
+		 public const ushort C2R_SayHello = 10041;
+		 public const ushort R2C_GoodBye = 10042;
+		 public const ushort ServerInfoProto = 10043;
+		 public const ushort C2A_GetServerInfos = 10044;
+		 public const ushort A2C_GetServerInfos = 10045;
+		 public const ushort RoleInfoProto = 10046;
+		 public const ushort C2A_CreateRole = 10047;
+		 public const ushort A2C_CreateRole = 10048;
+		 public const ushort C2A_GetRoles = 10049;
+		 public const ushort A2C_GetRoles = 10050;
+		 public const ushort C2A_DeleteRole = 10051;
+		 public const ushort A2C_DeleteRole = 10052;
+		 public const ushort C2A_GetRealmKey = 10053;
+		 public const ushort A2C_GetRealmKey = 10054;
+		 public const ushort C2R_LoginRealm = 10055;
+		 public const ushort R2C_LoginRealm = 10056;
+		 public const ushort C2G_LoginGameGate = 10057;
+		 public const ushort G2C_LoginGameGate = 10058;
+		 public const ushort C2G_EnterGame = 10059;
+		 public const ushort G2C_EnterGame = 10060;
 	}
 }

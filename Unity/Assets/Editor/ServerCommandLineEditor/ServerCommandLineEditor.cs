@@ -37,7 +37,8 @@ namespace ET
 
             if (GUILayout.Button("Start Mongo"))
             {
-                ProcessHelper.Run("mongod", @"--dbpath=db", "../Database/bin/");
+                //默认启动目录
+               ProcessHelper.Run("mongod", @"--dbpath=db", "../Database/bin/");
             }
         }
     }

@@ -20,9 +20,14 @@ namespace ET
             }
         }
         
+        // public static void Add(this PlayerComponent self, Player player)
+        // {
+        //     self.idPlayers.Add(player.Id, player);
+        // }
+
         public static void Add(this PlayerComponent self, Player player)
         {
-            self.idPlayers.Add(player.Id, player);
+            self.idPlayers.Add(player.Account, player);
         }
 
         public static Player Get(this PlayerComponent self,long id)

@@ -10,7 +10,7 @@ namespace ET
     {
         public static Process Run(string exe, string arguments, string workingDirectory = ".")
         {
-            //Log.Debug($"Process Run exe:{exe} ,arguments:{arguments} ,workingDirectory:{workingDirectory}");
+          // Log.Debug($"Process Run exe:{exe} ,arguments:{arguments} ,workingDirectory:{workingDirectory}");
             try
             {
                 bool redirectStandardOutput = true;

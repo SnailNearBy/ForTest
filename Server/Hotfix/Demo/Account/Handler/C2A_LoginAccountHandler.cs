@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ET
 {
+    
     [FriendClass(typeof(Account))]
     public  class C2A_LoginAccountHandler : AMRpcHandler<C2A_LoginAccount,A2C_LoginAccount>
     {
@@ -40,7 +41,8 @@ namespace ET
                 return;
             }
             
-            if (!Regex.IsMatch(request.Password.Trim(), @"^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{6,15}$"))
+            //if (!Regex.IsMatch(request.Password.Trim(), @"^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{6,15}$"))
+            if (!Regex.IsMatch(request.Password.Trim(), @"^[A-Za-z0-9]+$"))
             {
                 response.Error = ErrorCode.ERR_PasswordFormError;
                 reply();
@@ -76,7 +78,7 @@ namespace ET
                             reply();
                             session.Disconnect().Coroutine();
                             account?.Dispose();
-                            return;
+                            return; 
                         }
                     }
                     else
@@ -90,6 +92,28 @@ namespace ET
 
                     }
 
+                    StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCenter");
+                    long loginCenterInstanceId = startSceneConfig.InstanceId;
+                    var loginAccountResponse =(L2A_LoginAccountResponse) await ActorMessageSenderComponent
+                            .Instance.Call(loginCenterInstanceId, new A2L_LoginAccountRequest(){AccountId = account.Id});
+                    if (loginAccountResponse.Error != ErrorCode.ERR_Success)
+                    {
+                        response.Error = loginAccountResponse.Error;
+                    
+                        reply();
+                        session?.Disconnect().Coroutine();
+                        account?.Dispose();
+                        return;
+                    }
+                      
+                    
+                    long accountSessionInstanceId = session.DomainScene().GetComponent<AccountSessionsComponent>().Get(account.Id);
+                    Session otherSession = Game.EventSystem.Get(accountSessionInstanceId) as Session;
+                    otherSession?.Send(new A2C_Disconnect(){Error = 0});
+                    otherSession?.Disconnect().Coroutine();
+                    session.DomainScene().GetComponent<AccountSessionsComponent>().Add(account.Id,session.InstanceId);
+                    session.AddComponent<AccountCheckOutTimeComponent, long>(account.Id);
+                    
                     string Token = TimeHelper.ServerNow().ToString() + RandomHelper.RandomNumber(int.MinValue, int.MaxValue);
                     session.DomainScene().GetComponent<TokenComponent>().Remove(account.Id);
                     session.DomainScene().GetComponent<TokenComponent>().Add(account.Id, Token);

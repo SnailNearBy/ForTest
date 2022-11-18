@@ -33,6 +33,7 @@ namespace ET
 			int index = address.LastIndexOf(':');
 			string host = address.Substring(0, index);
 			string p = address.Substring(index + 1);
+			Log.Debug(p   + "????");
 			int port = int.Parse(p);
 			return ToIPEndPoint(host, port);
 		}

@@ -36,8 +36,20 @@ namespace ET
 					 return;
 				 }
 				 //TODO 显示登陆之后的页面逻辑
+				 Log.Debug("登陆成功！");
+				 //获取服务器列表
+				 errorCode = await LoginHelper.GetServerInfo(self.ZoneScene());
+				 if (errorCode != ErrorCode.ERR_Success)
+				 {
+					 Log.Error(errorCode.ToString());
+					 return;
+				 }
+				 // LoginHelper.LoginTest(self.DomainScene(),ConstValue.LoginAddress).Coroutine();
+				  
+				self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
+				self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Server);
 			}
-			catch (Exception e)
+			catch (Exception e)   
 			{
 				Log.Error(e.ToString());
 			}
@@ -45,8 +57,8 @@ namespace ET
 			
 			//self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Test);
 			//self.ZoneScene().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_Login);
-			
-			
+
+			await ETTask.CompletedTask;
 		}
 		
 		public static void HideWindow(this DlgLogin self)

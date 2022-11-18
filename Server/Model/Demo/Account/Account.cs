@@ -4,9 +4,9 @@ namespace ET
 {
     public enum AccountType
     {
-        General = 0 ,
+        General = 0 ,  //普通账号类型
         
-        BlackList = 1,
+        BlackList = 1, //黑名单
     }
     
     public class Account : Entity , IAwake
