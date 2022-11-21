@@ -1,0 +1,8 @@
+UI 制作标准
+
+UI命名规范 UI+ui名称
+单个ui层级下不能有相同名称的ui
+UI创建前需要在空物体下面
+
+
+sudo mongod -f ../mongod.conf
